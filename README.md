@@ -1,11 +1,12 @@
 # Wearable Parkinsonian Tremor Detector
 
-Parkinson's affects around 10 million people worldwide, and more than 70% of
-them live with rest tremor: shaking in a supported limb that fades once the
-limb starts moving. It sits in a narrow band, 3 to 6 Hz, and that narrowness
-is the opening. Ordinary movement spreads its energy across the spectrum
-while a tremor concentrates it in one place, so an accelerometer and an FFT
-are enough to tell the two apart.
+Parkinson's affects [more than 10 million people worldwide](https://www.parkinson.org/understanding-parkinsons/statistics),
+and rest tremor is [the presenting symptom in about 70% of cases](https://www.aafp.org/pubs/afp/issues/2018/0201/p180.html):
+shaking in a supported limb that fades once the limb starts moving. Classic
+rest tremor sits in a narrow band, 4 to 6 Hz, and that narrowness is the
+opening. Ordinary movement spreads its energy across the spectrum while a
+tremor concentrates it in one place, so an accelerometer and an FFT are
+enough to tell the two apart.
 
 This is that idea on an Adafruit Circuit Playground Classic and nothing else.
 No extra sensors, no companion phone, no SD card. Onboard accelerometer,
@@ -18,8 +19,10 @@ strapped to the wrist.
 All three accelerometer axes are read at 50 Hz and reduced to their
 magnitude, so how the board sits on the wrist does not matter. Every 128
 samples, about 2.6 seconds, a Hamming-windowed FFT runs and the strongest
-bin between 3 and 6 Hz is taken as the reading. Bin 0 is skipped, since at
-rest that one is mostly gravity.
+bin between 3 and 6 Hz is taken as the reading. The band reaches a hertz
+below the clinical 4 Hz on purpose, since the bins are 0.39 Hz apart and a
+tremor sitting near the boundary should not fall out of the window. Bin 0 is
+skipped, since at rest that one is mostly gravity.
 
 The ring shows the reading live. Green at the centre while things are still,
 yellow spreading outward as the band gets louder, red across the full ring
